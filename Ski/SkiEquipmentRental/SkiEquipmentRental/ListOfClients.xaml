@@ -1,0 +1,61 @@
+﻿<Window x:Class="SkiEquipmentRental.ListOfClients"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkiEquipmentRental"
+        mc:Ignorable="d"
+        Title="Окно для просмотра клиентов" Height="450" Width="800"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Canvas Width="800" Height="55" VerticalAlignment="Top" Background="#90F1FD">
+            <Button x:Name="AddClient" FontSize="20" Background="#90F1FD" BorderBrush="#90F1FD" Foreground="#394d4f" Content="Добавить клиента" Height="40" Width="210" Click="AddClient_Click" Canvas.Left="475" Canvas.Top="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Button x:Name="Exit" FontSize="20" Background="#90F1FD" BorderBrush="#90F1FD" Foreground="#394d4f" Content="Назад" Margin="690 5 0 0" Height="40" Width="80" Click="Back_Click"/>
+        </Canvas>
+
+        <Grid x:Name="UsersRequestLayer" Width="750" Height ="300" Margin="0 0 0 0">
+            <ListView x:Name="Spisok" Canvas.Top="60" Grid.Row="1" Margin="0 0 0 0" Width="750"  >
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn Width="auto" Header="ФИО">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FIO}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="auto" Header="Паспорт">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Passport}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="auto" Header="День рождения">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Birthday}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="auto" Header="Адрес">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Adress}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="auto" Header="Телефон">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Phone}" FontSize="15"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

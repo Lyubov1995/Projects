@@ -1,0 +1,4 @@
+﻿  Files.cpp
+C:\Users\zhuko\Документы\Колледж\3 курс\МДК 01.04\1 семестр\Files1_Scroll\Files\Files.cpp(250,32): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\zhuko\Документы\Колледж\3 курс\МДК 01.04\1 семестр\Files1_Scroll\Files\Files.cpp(301,29): warning C4018: <: несоответствие типов со знаком и без знака
+  Files.vcxproj -> C:\Users\zhuko\Документы\Колледж\3 курс\МДК 01.04\1 семестр\Files1_Scroll\Debug\Files.exe

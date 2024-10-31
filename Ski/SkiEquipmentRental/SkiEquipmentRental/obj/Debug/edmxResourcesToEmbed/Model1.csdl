@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SkyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Passport" Type="Int32" Nullable="false" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Clients" FromRole="Clients" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="FIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Employee_Role1" FromRole="Employee" ToRole="Role" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Employee" FromRole="Employee" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Equipment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TypeId" Type="Int32" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="PriceForHour" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TypeEquipment" Relationship="Self.FK_Equipment_TypeEquipment" FromRole="Equipment" ToRole="TypeEquipment" />
+    <NavigationProperty Name="HisroryOrders" Relationship="Self.FK_HisroryOrders_Equipment" FromRole="Equipment" ToRole="HisroryOrders" />
+  </EntityType>
+  <EntityType Name="HisroryOrders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipmentId" Type="Int32" Nullable="false" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="Summ" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Equipment" Relationship="Self.FK_HisroryOrders_Equipment" FromRole="HisroryOrders" ToRole="Equipment" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_HisroryOrders_Orders" FromRole="HisroryOrders" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <Property Name="StatusId" Type="Int32" Nullable="false" />
+    <Property Name="HowHours" Type="Int32" Nullable="false" />
+    <Property Name="DateClose" Type="DateTime" Precision="3" />
+    <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="Sum" Type="Int32" />
+    <Property Name="Shtraf" Type="Int32" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Orders_Clients" FromRole="Orders" ToRole="Clients" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employee" FromRole="Orders" ToRole="Employee" />
+    <NavigationProperty Name="HisroryOrders" Relationship="Self.FK_HisroryOrders_Orders" FromRole="Orders" ToRole="HisroryOrders" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_Orders_Status" FromRole="Orders" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Role1" FromRole="Role" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Status" FromRole="Status" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="TypeEquipment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_TypeEquipment" FromRole="TypeEquipment" ToRole="Equipment" />
+  </EntityType>
+  <Association Name="FK_Orders_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Role1">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equipment_TypeEquipment">
+    <End Role="TypeEquipment" Type="Self.TypeEquipment" Multiplicity="0..1" />
+    <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeEquipment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipment">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HisroryOrders_Equipment">
+    <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+    <End Role="HisroryOrders" Type="Self.HisroryOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HisroryOrders">
+        <PropertyRef Name="EquipmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HisroryOrders_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="HisroryOrders" Type="Self.HisroryOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="HisroryOrders">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SkyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" />
+    <EntitySet Name="Equipment" EntityType="Self.Equipment" />
+    <EntitySet Name="HisroryOrders" EntityType="Self.HisroryOrders" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="TypeEquipment" EntityType="Self.TypeEquipment" />
+    <AssociationSet Name="FK_Orders_Clients" Association="Self.FK_Orders_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Role1" Association="Self.FK_Employee_Role1">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Employee" Association="Self.FK_Orders_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equipment_TypeEquipment" Association="Self.FK_Equipment_TypeEquipment">
+      <End Role="TypeEquipment" EntitySet="TypeEquipment" />
+      <End Role="Equipment" EntitySet="Equipment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HisroryOrders_Equipment" Association="Self.FK_HisroryOrders_Equipment">
+      <End Role="Equipment" EntitySet="Equipment" />
+      <End Role="HisroryOrders" EntitySet="HisroryOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HisroryOrders_Orders" Association="Self.FK_HisroryOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="HisroryOrders" EntitySet="HisroryOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Status" Association="Self.FK_Orders_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

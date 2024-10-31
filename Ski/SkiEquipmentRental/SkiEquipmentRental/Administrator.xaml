@@ -1,0 +1,86 @@
+﻿<Window x:Class="SkiEquipmentRental.Administrator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkiEquipmentRental"
+        mc:Ignorable="d"
+        Title="Окно администратора" Height="450" Width="800"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Canvas Width="800" Height="55" VerticalAlignment="Top" Background="#90F1FD">
+            <Label Content="Список заказов" Foreground="#394d4f" FontSize="20" Margin="15 7 0 0" Height="40" Width="160"/>
+            <Button x:Name="Account" FontSize="20" Background="#90F1FD" BorderBrush="#90F1FD" Foreground="#394d4f" Content="Аккаунт" Height="40" Width="112" Click="Account_Click" Canvas.Left="486" Canvas.Top="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button x:Name="Customers" FontSize="20" Background="#90F1FD" BorderBrush="#90F1FD" Foreground="#394d4f" Content="Клиенты" Height="40" Width="92" Click="Customers_Click" Canvas.Left="598" Canvas.Top="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button x:Name="Exit" FontSize="20" Background="#90F1FD" BorderBrush="#90F1FD" Foreground="#394d4f" Content="Выход" Margin="690 5 0 0" Height="40" Width="80" Click="Exit_Click"/>
+        </Canvas>
+
+        <Grid x:Name="UsersRequestLayer" Width="750" Height ="300" Margin="0 0 0 0">
+
+            <ListView x:Name="Spisok" Canvas.Top="60" Grid.Row="1" Margin="0 0 0 0" Width="750">
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn Width="90" Header="Сотрудник">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Employee.FIO}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="130" Header="Клиент">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Clients.FIO}"/>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="120" Header="Статус">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Status.Name}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="120" Header="Количество часов">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding HowHours}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="120" Header="Сумма">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Sum}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="120" Header="Штраф">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Shtraf}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="140" Header="Дата подачи">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Date, StringFormat=dd.MM.yyyy}" FontSize="15"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="140" Header="Дата закрытия">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DateClose, StringFormat=dd.MM.yyyy}" FontSize="15"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
